@@ -27,15 +27,19 @@ if [ ! -z "${PROXY}" ]; then
             else
                 sed -i -E "s#^forward-.*#${PRIVOXY_CONFIG}#g" /etc/privoxy/config
             fi
-            CONFFILE=/etc/privoxy/config
-            PIDFILE=/var/run/privoxy.pid
-            /usr/sbin/privoxy \
-                --pidfile "${PIDFILE}" \
-                --user privoxy.privoxy "${CONFFILE}" &
-            waitforit -full-connection=tcp://127.0.0.1:8118 -timeout=180
-
-            #curl --connect-timeout 2 -x 127.0.0.1:8118 http://google.com
         fi
+
+        echo "starting privoxy"
+        CONFFILE=/etc/privoxy/config
+        PIDFILE=/var/run/privoxy.pid
+        /usr/sbin/privoxy \
+            --pidfile "${PIDFILE}" \
+            --user privoxy.privoxy "${CONFFILE}" &
+
+        echo "waiting for privoxy"
+        waitforit -full-connection=tcp://127.0.0.1:8118 -timeout=180
+        echo "privoxy started"
+        #curl --connect-timeout 2 -x 127.0.0.1:8118 http://google.com
         ;;
     esac
 fi
