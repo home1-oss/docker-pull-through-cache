@@ -32,6 +32,7 @@ if [ ! -z "${PROXY}" ]; then
             /usr/sbin/privoxy \
                 --pidfile "${PIDFILE}" \
                 --user privoxy.privoxy "${CONFFILE}" &
+            waitforit -full-connection=tcp://127.0.0.1:8118 -timeout=180
 
             #curl --connect-timeout 2 -x 127.0.0.1:8118 http://google.com
         fi
