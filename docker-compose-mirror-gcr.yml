@@ -2,10 +2,6 @@
 version: '2.1'
 services:
   docker-mirror-gcr:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      #args:
     image: ${DOCKER_REGISTRY:-home1oss}/pull-through-cache:2.6.1
     restart: always
     command: ["/etc/docker/registry/config.yml"]

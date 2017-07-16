@@ -13,14 +13,14 @@ PROXY="socks5://127.0.0.1:1080" PULL_THROUGH_CACHE_OF="https://gcr.io" docker-co
 
 ```sh
 # --registry-mirror not set
-docker pull 127.0.0.1:25000/google_containers/kube-dnsmasq-amd64:1.4
-#docker pull $(docker run --net=host busybox ip addr show | grep 192 | grep -Eo '([0-9]+\.){3}[0-9]+' | head -n1):25000/google_containers/kube-dnsmasq-amd64:1.4
+docker pull 127.0.0.1:25004/google_containers/kube-dnsmasq-amd64:1.4
+#docker pull $(docker run --net=host busybox ip addr show | grep 192 | grep -Eo '([0-9]+\.){3}[0-9]+' | head -n1):25004/google_containers/kube-dnsmasq-amd64:1.4
 
-# --registry-mirror set to http://127.0.0.1:25000
+# --registry-mirror set to http://127.0.0.1:25004
 docker pull gcr.io/google_containers/kube-dnsmasq-amd64:1.4
 
-curl http://127.0.0.1:25000/v2/_catalog
-curl http://127.0.0.1:25000/v2/google_containers/kube-dnsmasq-amd64/tags/list
+curl http://127.0.0.1:25004/v2/_catalog
+curl http://127.0.0.1:25004/v2/google_containers/kube-dnsmasq-amd64/tags/list
 ```
 
 
