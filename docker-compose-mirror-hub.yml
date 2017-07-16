@@ -1,0 +1,28 @@
+
+version: '2.1'
+services:
+  docker-mirror-gcr:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      #args:
+    image: ${DOCKER_REGISTRY:-home1oss}/pull-through-cache:2.6.1
+    restart: always
+    command: ["/etc/docker/registry/config.yml"]
+    container_name: ${PULL_THROUGH_CACHE_HOSTNAME:-registry-1.docker.io.local}
+    hostname: ${PULL_THROUGH_CACHE_HOSTNAME:-registry-1.docker.io.local}
+    ports:
+    - "25003:5000/tcp"
+    environment:
+    - PROXY=${PROXY:-socks5://127.0.0.1:1080}
+    - PULL_THROUGH_CACHE_OF=https://registry-1.docker.io
+    volumes:
+    - volume-mirror-hub:/var/lib/registry
+
+networks:
+  default:
+    external:
+      name: oss-network
+
+volumes:
+  volume-mirror-hub: {}

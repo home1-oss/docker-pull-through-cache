@@ -24,6 +24,6 @@ curl http://127.0.0.1:25000/v2/google_containers/kube-dnsmasq-amd64/tags/list
 ```
 
 
-see: https://docs.docker.com/registry/recipes/mirror/
-see: https://hub.docker.com/_/registry/
+see: https://docs.docker.com/registry/recipes/mirror/  
+see: https://hub.docker.com/_/registry/  
 see: https://github.com/docker/distribution-library-image/

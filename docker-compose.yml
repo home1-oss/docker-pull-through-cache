@@ -1,7 +1,7 @@
 
 version: '2.1'
 services:
-  pull-through-cache:
+  docker-pull-through-cache:
     build:
       context: .
       dockerfile: Dockerfile
@@ -14,8 +14,8 @@ services:
     ports:
     - "25000:5000/tcp"
     environment:
-    - PROXY=${PROXY} #soscks5://127.0.0.1:1080
-    - PULL_THROUGH_CACHE_OF=${PULL_THROUGH_CACHE_OF} #https://registry-1.docker.io
+    - PROXY=${PROXY}
+    - PULL_THROUGH_CACHE_OF=${PULL_THROUGH_CACHE_OF}
     volumes:
     - volume-pull-through-cache:/var/lib/registry
 
