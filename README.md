@@ -18,7 +18,11 @@ docker pull 127.0.0.1:25000/google_containers/kube-dnsmasq-amd64:1.4
 
 # --registry-mirror set to http://127.0.0.1:25000
 docker pull gcr.io/google_containers/kube-dnsmasq-amd64:1.4
+
+curl http://127.0.0.1:25000/v2/_catalog
+curl http://127.0.0.1:25000/v2/google_containers/kube-dnsmasq-amd64/tags/list
 ```
+
 
 see: https://docs.docker.com/registry/recipes/mirror/
 see: https://hub.docker.com/_/registry/
