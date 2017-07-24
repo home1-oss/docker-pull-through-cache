@@ -8,10 +8,11 @@ services:
     container_name: ${PULL_THROUGH_CACHE_HOSTNAME:-registry-1.docker.io.local}
     hostname: ${PULL_THROUGH_CACHE_HOSTNAME:-registry-1.docker.io.local}
     ports:
-    - "25003:5000/tcp"
+    - "${PULL_THROUGH_CACHE_PORT:-25003}:${PULL_THROUGH_CACHE_PORT:-25003}/tcp"
     environment:
     - PROXY=${PROXY:-socks5://127.0.0.1:1080}
     - PULL_THROUGH_CACHE_OF=https://registry-1.docker.io
+    - PULL_THROUGH_CACHE_PORT=${PULL_THROUGH_CACHE_PORT:-25003}
     volumes:
     - volume-mirror-hub:/var/lib/registry
 

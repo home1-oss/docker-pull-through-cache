@@ -8,10 +8,11 @@ services:
     container_name: ${PULL_THROUGH_CACHE_HOSTNAME:-gcr.io.local}
     hostname: ${PULL_THROUGH_CACHE_HOSTNAME:-gcr.io.local}
     ports:
-    - "25004:5000/tcp"
+    - "${PULL_THROUGH_CACHE_PORT:-25004}:${PULL_THROUGH_CACHE_PORT:-25004}/tcp"
     environment:
     - PROXY=${PROXY:-socks5://127.0.0.1:1080}
     - PULL_THROUGH_CACHE_OF=https://gcr.io
+    - PULL_THROUGH_CACHE_PORT=${PULL_THROUGH_CACHE_PORT:-25004}
     volumes:
     - volume-mirror-gcr:/var/lib/registry
 

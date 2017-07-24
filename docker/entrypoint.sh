@@ -50,13 +50,18 @@ if [ ! -z "${HTTP_PROXY}" ]; then
     export ftp_proxy=${HTTP_PROXY}
 fi
 
+cp -f /etc/docker/registry/config-example.yml /tmp/config.yml
 if [ ! -z "${PULL_THROUGH_CACHE_OF}" ]; then
-    cp -f /etc/docker/registry/config-example.yml /tmp/config.yml
     echo "proxy:" >> /tmp/config.yml
     echo "  remoteurl: ${PULL_THROUGH_CACHE_OF}" >> /tmp/config.yml
-    mv -f /tmp/config.yml /etc/docker/registry/config.yml
-else
-    cp -f /etc/docker/registry/config-example.yml /etc/docker/registry/config.yml
+fi
+if [ ! -z "${PULL_THROUGH_CACHE_PORT}" ]; then
+    sed -i -E "s/^[ ]+addr: :([0-9]+)\$/  addr: :${PULL_THROUGH_CACHE_PORT}/" /tmp/config.yml
+fi
+mv -f /tmp/config.yml /etc/docker/registry/config.yml
+
+if [ ! -z "${PULL_THROUGH_CACHE_PORT}" ] && [ "${PULL_THROUGH_CACHE_PORT}" != "5000" ]; then
+    socat TCP-LISTEN:5000,fork TCP:127.0.0.1:${PULL_THROUGH_CACHE_PORT} &
 fi
 
 set -e

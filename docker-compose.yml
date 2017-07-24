@@ -12,10 +12,11 @@ services:
     container_name: ${PULL_THROUGH_CACHE_HOSTNAME:-pull-through-cache.local}
     hostname: ${PULL_THROUGH_CACHE_HOSTNAME:-pull-through-cache.local}
     ports:
-    - "25000:5000/tcp"
+    - "${PULL_THROUGH_CACHE_PORT:-25000}:${PULL_THROUGH_CACHE_PORT:-25000}/tcp"
     environment:
     - PROXY=${PROXY}
     - PULL_THROUGH_CACHE_OF=${PULL_THROUGH_CACHE_OF}
+    - PULL_THROUGH_CACHE_PORT=${PULL_THROUGH_CACHE_PORT:-25000}
     volumes:
     - volume-pull-through-cache:/var/lib/registry
 
