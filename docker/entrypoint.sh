@@ -2,7 +2,6 @@
 
 HTTP_PROXY=""
 HTTPS_PROXY=""
-NO_PROXY="localhost,127.0.0.1,*.local,*.internal"
 
 echo "PROXY=${PROXY} PULL_THROUGH_CACHE_OF=${PULL_THROUGH_CACHE_OF}"
 
@@ -23,7 +22,7 @@ if [ ! -z "${PROXY}" ]; then
         PRIVOXY_CONFIG="forward-${PROXY_PROTOCOL} / ${PROXY_HOST_PORT} ."
         if ! grep "${PRIVOXY_CONFIG}" /etc/privoxy/config; then
             if ! grep -E "^forward-" /etc/privoxy/config; then
-                echo "forward-${PROXY_PROTOCOL} / ${PROXY_HOST_PORT} ." >> /etc/privoxy/config
+                echo "${PRIVOXY_CONFIG}" >> /etc/privoxy/config
             else
                 sed -i -E "s#^forward-.*#${PRIVOXY_CONFIG}#g" /etc/privoxy/config
             fi
@@ -75,5 +74,6 @@ case "$1" in
     ;;
 esac
 
+NO_PROXY="localhost,127.0.0.1,*.local,*.internal"
 echo "HTTP_PROXY=${HTTP_PROXY} HTTPS_PROXY=${HTTPS_PROXY}"
 HTTP_PROXY="${HTTP_PROXY}" HTTPS_PROXY="${HTTPS_PROXY}" NO_PROXY="${NO_PROXY}" exec "$@"
