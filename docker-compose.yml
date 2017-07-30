@@ -9,8 +9,8 @@ services:
     image: ${DOCKER_REGISTRY:-home1oss}/pull-through-cache:2.6.1
     restart: always
     command: ["/etc/docker/registry/config.yml"]
-    container_name: ${PULL_THROUGH_CACHE_HOSTNAME:-pull-through-cache.local}
-    hostname: ${PULL_THROUGH_CACHE_HOSTNAME:-pull-through-cache.local}
+    container_name: ${PULL_THROUGH_CACHE_DOMAIN:-pull-through-cache}.${INFRASTRUCTURE:-local}
+    hostname: ${PULL_THROUGH_CACHE_DOMAIN:-pull-through-cache}.${INFRASTRUCTURE:-local}
     ports:
     - "${PULL_THROUGH_CACHE_PORT:-25000}:${PULL_THROUGH_CACHE_PORT:-25000}/tcp"
     environment:
